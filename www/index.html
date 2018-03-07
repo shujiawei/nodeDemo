@@ -6,10 +6,65 @@
 	<title>Document</title>
 </head>
 <body>
-	<form action="http://localhost:8787/index1" method="POST">
-		名字: <input type="text" name="user"><br>
-		密码: <input type="text" name="pass"><br>
-		<input type="submit" value="提交"><br>
-	</form>
+	名字: <input type="text" name="user" id="user"/><br>
+	密码: <input type="text" name="pass" id="pass"><br>
+	<input type="submit" value="注册" id="reg" ><br>
+	<input type="submit" value="登陆" id="login"><br>
+	<script>
+		let oUser = document.getElementById('user')
+		let oPass = document.getElementById('pass')
+		let oReg = document.getElementById('reg')
+		let oLogin = document.getElementById('login')
+		oReg.onclick = function () {
+			ajax({
+				method:'get',
+				data:{
+					act:'reg',
+					user: oUser.value,
+					pass: oPass.value
+				},
+				url: '/user',
+				success: (res) =>{
+					alert(res)
+				}
+				
+			})
+		}
+		function ajax(opt) {
+			opt = opt || {};
+			opt.method = opt.method.toUpperCase() || 'POST';
+			opt.url = opt.url || '';
+			opt.async = opt.async || true;
+			opt.data = opt.data || null;
+			opt.success = opt.success || function () {};
+			var xmlHttp = null;
+			if (XMLHttpRequest) {
+				xmlHttp = new XMLHttpRequest();
+			}
+			else {
+				xmlHttp = new ActiveXObject('Microsoft.XMLHTTP');
+			}
+			var params = [];
+			for (var key in opt.data){
+				params.push(key + '=' + opt.data[key]);
+			}
+			var postData = params.join('&');
+			if (opt.method.toUpperCase() === 'POST') {
+				xmlHttp.open(opt.method, opt.url, opt.async);
+				xmlHttp.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded;charset=utf-8');
+				xmlHttp.send(postData);
+			}
+			else if (opt.method.toUpperCase() === 'GET') {
+				xmlHttp.open(opt.method, opt.url + '?' + postData, opt.async);             
+				xmlHttp.send(null);         
+			} 
+			xmlHttp.onreadystatechange = function () {
+				if (xmlHttp.readyState == 4 && xmlHttp.status == 200) {
+					opt.success(xmlHttp.responseText);
+				}
+			};
+		}
+		
+	</script>
 </body>
 </html>
