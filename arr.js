@@ -45,3 +45,11 @@ function params (a,b,...rest) { //rest 是获取多余的参数
 }
 demo(2,3,45,45,56,6,76,7,3,43,5)
 params(2,3,45,45,56,6,76,7,3,43,5)
+
+
+var count = 0
+var oldParnint= window.parseInt
+window.parseInt = function () {
+	count ++ 
+	return oldParnint.apply(null, arguments)
+}
