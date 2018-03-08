@@ -1,0 +1,91 @@
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<title>轮播图</title>
+	<style>
+		*{margin: 0;padding: 0;}
+		.swiper_container{
+			width: 400px;
+			height: 200px;
+			overflow: hidden;
+			margin: 200px auto;
+			border: 1px solid #e5e5e5;
+			position: relative;
+		}
+		.swiper_wrap{
+			height: 200px;
+			position: absolute;
+			list-style: none;
+		}
+		.swiper_img{
+			width: 400px;
+			height: 200px;
+			text-align: center;
+			line-height: 200px;
+			color: #ffffff;
+			float: left;
+		}
+		.bg1{
+			background: red;
+		}
+		.bg2{
+			background: blue;
+		}
+		.bg3{
+			background: yellow;
+		}
+		.bg4{
+			background: #999;
+		}
+		.bg5{
+			background: #333;
+		}
+	</style>
+</head>
+<body>
+	<div class="swiper_container">
+		<ul class="swiper_wrap">
+			<li class="swiper_img bg1">1</li>
+			<li class="swiper_img bg2">2</li>
+			<li class="swiper_img bg3">3</li>
+			<li class="swiper_img bg4">4</li>
+			<li class="swiper_img bg5">5</li>
+			<li class="swiper_img bg1">1</li>
+			<li class="swiper_img bg2">2</li>
+			<li class="swiper_img bg3">3</li>
+			<li class="swiper_img bg4">4</li>
+			<li class="swiper_img bg5">5</li>
+		</ul>
+	</div>
+	<script>
+		let oContainer = document.getElementsByClassName('swiper_wrap')[0]
+		let oBox = document.getElementsByClassName('swiper_img')
+		let oBoxWidth = oBox[0].offsetWidth;
+		let oContainerWidth= oBox[0].offsetWidth * oBox.length
+		oContainer.style.width = oContainerWidth;
+		let iFage = 0;
+		function time () {
+			var t = setInterval(()=> {
+				if(oContainer.offsetLeft <= -oContainer.offsetWidth/2) {
+					oContainer.style.left = 0
+					iFage = 0
+				}
+				if(oContainer.offsetLeft % oBoxWidth == 0) {
+					clearInterval(t)
+					setTimeout(()=>{
+						-- iFage
+						oContainer.style.left = iFage + 'px'
+						time ()
+					},1000)
+				}else{
+					iFage --
+					oContainer.style.left = iFage + 'px'	
+				}
+			},1)
+		}
+		time ()
+	</script>
+</body>
+</html>
