@@ -1,0 +1,28 @@
+/* 垂直居中 */
+div{
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+/* 宽高确定的 */
+div{
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	margin-left: -50%;
+	margin-top: -50%;
+}
+/* 宽高不确定的 */
+div{
+	position: absolute;
+	left: 50%;
+	top: 50%;
+	transform: translate(-50%,-50%);
+}
+/* 文字居中 */
+div{
+	text-align: center;
+	height: 5rem;
+	line-height: 5rem;
+}
+
