@@ -41,10 +41,10 @@ http.createServer((req, res)=> {
 		if(req.url != '/favicon.ico') {
 			fs.readFile(file_name,(err,data)=>{
 				if(err){
-					console.log(err)
+					console.log(err);
 				}else{
-					res.write(data)
-					res.end()
+					res.write(data);
+					res.end();
 				}
 			})
 		}
